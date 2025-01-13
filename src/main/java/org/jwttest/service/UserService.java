@@ -1,8 +1,8 @@
-package org.jwtTest.service;
+package org.jwttest.service;
 
-import org.jwtTest.model.User;
-import org.jwtTest.model.UserRequest;
-import org.jwtTest.model.UserResponse;
+import org.jwttest.model.User;
+import org.jwttest.model.UserRequest;
+import org.jwttest.model.UserResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

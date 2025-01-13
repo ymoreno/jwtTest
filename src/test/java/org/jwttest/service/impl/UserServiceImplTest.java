@@ -1,14 +1,12 @@
-package org.jwtTest.service.impl;
+package org.jwttest.service.impl;
 
-import org.jwtTest.model.Phone;
-import org.jwtTest.model.User;
-import org.jwtTest.model.UserRequest;
-import org.jwtTest.model.UserResponse;
-import org.jwtTest.persistence.UserRepository;
-import org.jwtTest.util.JwtUtil;
+import org.jwttest.model.User;
+import org.jwttest.model.UserRequest;
+import org.jwttest.model.UserResponse;
+import org.jwttest.persistence.UserRepository;
+import org.jwttest.util.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;

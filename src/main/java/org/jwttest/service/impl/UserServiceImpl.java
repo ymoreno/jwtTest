@@ -1,14 +1,14 @@
-package org.jwtTest.service.impl;
+package org.jwttest.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jwtTest.model.Phone;
-import org.jwtTest.model.User;
-import org.jwtTest.model.UserRequest;
-import org.jwtTest.model.UserResponse;
-import org.jwtTest.persistence.UserRepository;
-import org.jwtTest.service.UserService;
-import org.jwtTest.util.JwtUtil;
-import org.jwtTest.util.ValidationUtility;
+import org.jwttest.model.Phone;
+import org.jwttest.model.User;
+import org.jwttest.model.UserRequest;
+import org.jwttest.model.UserResponse;
+import org.jwttest.persistence.UserRepository;
+import org.jwttest.service.UserService;
+import org.jwttest.util.JwtUtil;
+import org.jwttest.util.ValidationUtility;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

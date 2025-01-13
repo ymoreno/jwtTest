@@ -1,12 +1,12 @@
-package org.jwtTest.controller;
+package org.jwttest.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jwtTest.exception.ErrorResponse;
-import org.jwtTest.model.User;
-import org.jwtTest.model.UserRequest;
-import org.jwtTest.model.UserResponse;
-import org.jwtTest.service.UserService;
-import org.jwtTest.util.JwtUtil;
+import org.jwttest.exception.ErrorResponse;
+import org.jwttest.model.User;
+import org.jwttest.model.UserRequest;
+import org.jwttest.model.UserResponse;
+import org.jwttest.service.UserService;
+import org.jwttest.util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

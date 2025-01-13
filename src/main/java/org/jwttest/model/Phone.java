@@ -1,4 +1,4 @@
-package org.jwtTest.model;
+package org.jwttest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;

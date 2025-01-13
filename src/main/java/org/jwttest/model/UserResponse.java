@@ -1,4 +1,4 @@
-package org.jwtTest.model;
+package org.jwttest.model;
 
 import lombok.Builder;
 import lombok.Data;

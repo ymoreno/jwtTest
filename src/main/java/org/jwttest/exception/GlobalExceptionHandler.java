@@ -1,4 +1,4 @@
-package org.jwtTest.exception;
+package org.jwttest.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

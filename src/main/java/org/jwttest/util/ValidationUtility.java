@@ -1,4 +1,4 @@
-package org.jwtTest.util;
+package org.jwttest.util;
 
 import java.util.regex.Pattern;
 

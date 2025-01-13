@@ -1,4 +1,4 @@
-package org.jwtTest.exception;
+package org.jwttest.exception;
 
 import lombok.Getter;
 import lombok.Setter;
