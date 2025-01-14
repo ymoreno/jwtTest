@@ -22,6 +22,8 @@ public class UserRequest {
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Phone {
         private long number;
         private int citycode;

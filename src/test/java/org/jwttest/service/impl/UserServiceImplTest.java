@@ -1,5 +1,7 @@
 package org.jwttest.service.impl;
 
+import org.jwttest.exception.NotFoundException;
+import org.jwttest.exception.UnauthorizedException;
 import org.jwttest.model.User;
 import org.jwttest.model.UserRequest;
 import org.jwttest.model.UserResponse;
@@ -79,6 +81,63 @@ class UserServiceImplTest {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> userService.createUser(userRequest));
         verify(userRepository, never()).save(any(User.class));
+    }
+
+
+    @Test
+    void testGetUserByToken_Success() {
+        // Arrange
+        String token = "Bearer valid-token";
+        String email = "test@example.com";
+        User user = User.builder()
+                .email(email)
+                .id(UUID.randomUUID())
+                .token("old-token")
+                .lastLogin(new Date())
+                .isActive(true)
+                .build();
+
+        when(jwtUtil.isTokenValid("valid-token")).thenReturn(true);
+        when(jwtUtil.extractSubject("valid-token")).thenReturn(email);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        when(jwtUtil.generateToken(email)).thenReturn("new-token");
+        when(userRepository.save(any(User.class))).thenReturn(user);
+
+        // Act
+        User result = userService.getUserByToken(token);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("new-token", result.getToken());
+        verify(userRepository, times(1)).findByEmail(email);
+    }
+
+
+    @Test
+    void testGetUserByToken_InvalidToken() {
+        // Arrange
+        String token = "Bearer invalid-token";
+
+        when(jwtUtil.isTokenValid("invalid-token")).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(UnauthorizedException.class, () -> userService.getUserByToken(token));
+        verify(userRepository, never()).findByEmail(anyString());
+    }
+
+    @Test
+    void testGetUserByToken_UserNotFound() {
+        // Arrange
+        String token = "Bearer valid-token";
+        String email = "nonexistent@example.com";
+
+        when(jwtUtil.isTokenValid("valid-token")).thenReturn(true);
+        when(jwtUtil.extractSubject("valid-token")).thenReturn(email);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(NotFoundException.class, () -> userService.getUserByToken(token));
+        verify(userRepository, times(1)).findByEmail(email);
     }
 
     @Test

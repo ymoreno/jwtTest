@@ -17,4 +17,6 @@ public interface UserService {
     User updateToken(User user);
 
     User getUser(String tokenHeader);
+
+    User getUserByToken(String tokenHeader);
 }

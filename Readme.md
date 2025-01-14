@@ -7,7 +7,7 @@ This project implements an authentication system using JSON Web Tokens (JWT) in 
 Before starting, ensure you have the following installed on your machine:
 
 - [Java 11](https://adoptopenjdk.net/) or higher
-- [Maven](https://maven.apache.org/) for dependency management and build
+- [Gradle](https://gradle.org/) for dependency management and build
 - [Spring Boot](https://spring.io/projects/spring-boot) (used as the framework)
 - [Git](https://git-scm.com/) for source code management
 
@@ -26,7 +26,8 @@ git clone https://github.com/your_username/jwt-authentication-system.git
 After cloning the repository, navigate to the project directory and execute the following command to build the project using Maven:
 
 ```bash
-mvn clean install
+gradle init
+gradle build
 ```
 
 This command will download all necessary dependencies and package the application.
@@ -36,7 +37,7 @@ This command will download all necessary dependencies and package the applicatio
 To run the application, use the following command:
 
 ```bash
-mvn spring-boot:run
+gradle bootRun
 ```
 
 ### 4. Endpoints

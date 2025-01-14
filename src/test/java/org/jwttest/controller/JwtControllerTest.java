@@ -68,7 +68,6 @@ class JwtControllerTest {
         String token = "validToken";
         UUID id = UUID.randomUUID();
 
-
         User mockUser = User.builder()
                 .id(id)
                 .email("test@example.com")
@@ -78,7 +77,7 @@ class JwtControllerTest {
         when(jwtUtil.isTokenValid(token)).thenReturn(true);
         when(userService.getUser(tokenHeader)).thenReturn(mockUser);
 
-        ResponseEntity<?> response = jwtController.login(tokenHeader);
+        ResponseEntity<User> response = jwtController.login(tokenHeader);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());

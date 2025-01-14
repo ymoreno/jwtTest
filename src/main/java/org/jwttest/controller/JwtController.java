@@ -34,24 +34,9 @@ public class JwtController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestHeader("Authorization") String tokenHeader) {
-        String token = tokenHeader.replace("Bearer ", "");
-
-        if (!jwtUtil.isTokenValid(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(401, "Invalid token"));
-        }
-
-        try {
-            User user = userService.getUser(tokenHeader);
-            if (user != null) {
-                return ResponseEntity.ok(user);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(401, "User not found or inactive"));
-            }
-        } catch (Exception e) {
-            log.error("Error getting user: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
-        }
+    public ResponseEntity<User> login(@RequestHeader("Authorization") String tokenHeader) {
+        User user = userService.getUserByToken(tokenHeader);
+        return ResponseEntity.ok(user);
 
     }
 }

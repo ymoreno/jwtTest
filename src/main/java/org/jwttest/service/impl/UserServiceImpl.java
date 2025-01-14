@@ -1,6 +1,8 @@
 package org.jwttest.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jwttest.exception.NotFoundException;
+import org.jwttest.exception.UnauthorizedException;
 import org.jwttest.model.Phone;
 import org.jwttest.model.User;
 import org.jwttest.model.UserRequest;
@@ -116,6 +118,22 @@ public class UserServiceImpl implements UserService {
         user.setToken(token);
         user.setLastLogin(new Date());
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByToken(String tokenHeader) {
+        String token = tokenHeader.replace("Bearer ", "");
+
+        if (!jwtUtil.isTokenValid(token)) {
+            throw new UnauthorizedException("Invalid token");
+        }
+
+        User user = getUser(tokenHeader);
+        if (user == null || !user.isActive()) {
+            throw new NotFoundException("User not found or inactive");
+        }
+
+        return user;
     }
 
 }
