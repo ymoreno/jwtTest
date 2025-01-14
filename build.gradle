@@ -42,5 +42,5 @@ test {
 }
 
 application {
-    mainClass = 'org.jwttest.JwtApp.java'
+    mainClass = 'org.jwttest.JwtApp'
 }
