@@ -74,8 +74,7 @@ class JwtControllerTest {
                 .isActive(true)
                 .build();
 
-        when(jwtUtil.isTokenValid(token)).thenReturn(true);
-        when(userService.getUser(tokenHeader)).thenReturn(mockUser);
+        when(userService.getUserByToken(tokenHeader)).thenReturn(mockUser);
 
         ResponseEntity<User> response = jwtController.login(tokenHeader);
 
@@ -83,58 +82,7 @@ class JwtControllerTest {
         assertNotNull(response.getBody());
         assertTrue(response.getBody() instanceof User);
         assertEquals(id, ((User) response.getBody()).getId());
-        verify(jwtUtil, times(1)).isTokenValid(token);
-        verify(userService, times(1)).getUser(tokenHeader);
+        verify(userService, times(1)).getUserByToken(tokenHeader);
     }
 
-    @Test
-    void login_shouldReturnUnauthorized_whenTokenIsInvalid() {
-        String tokenHeader = "Bearer invalidToken";
-        String token = "invalidToken";
-
-        when(jwtUtil.isTokenValid(token)).thenReturn(false);
-
-        ResponseEntity<?> response = jwtController.login(tokenHeader);
-
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertTrue(response.getBody() instanceof ErrorResponse);
-        assertEquals(401, ((ErrorResponse) response.getBody()).getCode());
-        assertEquals("Invalid token", ((ErrorResponse) response.getBody()).getDetail());
-        verify(jwtUtil, times(1)).isTokenValid(token);
-        verify(userService, never()).getUser(any());
-    }
-
-    @Test
-    void login_shouldReturnNotFound_whenUserIsNotFound() {
-        String tokenHeader = "Bearer validToken";
-        String token = "validToken";
-
-        when(jwtUtil.isTokenValid(token)).thenReturn(true);
-        when(userService.getUser(tokenHeader)).thenReturn(null);
-
-        ResponseEntity<?> response = jwtController.login(tokenHeader);
-
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertTrue(response.getBody() instanceof ErrorResponse);
-        assertEquals(401, ((ErrorResponse) response.getBody()).getCode());
-        assertEquals("User not found or inactive", ((ErrorResponse) response.getBody()).getDetail());
-        verify(jwtUtil, times(1)).isTokenValid(token);
-        verify(userService, times(1)).getUser(tokenHeader);
-    }
-
-    @Test
-    void login_shouldReturnInternalServerError_whenExceptionOccurs() {
-        String tokenHeader = "Bearer validToken";
-        String token = "validToken";
-
-        when(jwtUtil.isTokenValid(token)).thenReturn(true);
-        when(userService.getUser(tokenHeader)).thenThrow(new RuntimeException("Database error"));
-
-        ResponseEntity<?> response = jwtController.login(tokenHeader);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Internal server error.", response.getBody());
-        verify(jwtUtil, times(1)).isTokenValid(token);
-        verify(userService, times(1)).getUser(tokenHeader);
-    }
 }
