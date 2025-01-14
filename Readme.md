@@ -23,7 +23,7 @@ git clone https://github.com/your_username/jwt-authentication-system.git
 
 ### 2. Build the Project
 
-After cloning the repository, navigate to the project directory and execute the following command to build the project using Maven:
+After cloning the repository, navigate to the project directory and execute the following command to build the project using Gradle:
 
 ```bash
 gradle init
