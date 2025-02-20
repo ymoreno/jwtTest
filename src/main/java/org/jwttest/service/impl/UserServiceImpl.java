@@ -92,6 +92,10 @@ public class UserServiceImpl implements UserService {
 
     private String validateAndReturnEmail(String email) {
         if (ValidationUtility.isValidEmail(email)) {
+            final Optional<User> byEmail = userRepository.findByEmail(email);
+            if (byEmail.isPresent()){
+                throw new IllegalArgumentException("User already exists");
+            }
             return email;
         } else {
             throw new IllegalArgumentException("Wrong email format");
